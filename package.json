@@ -9,10 +9,16 @@
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+<<<<<<< HEAD
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "axios": "^1.11.0",
+=======
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+>>>>>>> bfa727f7b5b30307d39cef51f985f74daf494749
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
@@ -22,6 +28,10 @@
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint": "^9.29.0",
     "eslint-plugin-vue": "~10.2.0",
+<<<<<<< HEAD
+=======
+    "gh-pages": "^6.3.0",
+>>>>>>> bfa727f7b5b30307d39cef51f985f74daf494749
     "globals": "^16.2.0",
     "prettier": "3.5.3",
     "vite": "^7.0.0",
