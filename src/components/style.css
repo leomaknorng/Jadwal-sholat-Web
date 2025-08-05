@@ -1,0 +1,1010 @@
+/* Import Google Fonts */
+/* Montserrat untuk judul dan teks umum (tebal & modern) */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
+/* Cairo untuk sentuhan Arabic pada tanggal Hijriah */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap");
+/* Material Symbols Sharp untuk ikon */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
+
+/* --- Variabel Warna & Font --- */
+:root {
+  /* Palet Primer (Terinspirasi Malam & Alam Islami) */
+  --color-dark-primary: #17202a; /* Deep Charcoal / Hampir Hitam */
+  --color-dark-secondary: #2c3e50; /* Dark Navy Blue */
+
+  /* Aksen (Gen Z Vibrant + Islamic Earth Tones) */
+  --color-accent-green: #3d9970; /* Medium Sea Green - Elegant & Calming */
+  --color-accent-gold: #ffc300; /* Vibrant Gold - Energy & Luxury */
+  --color-accent-cyan: #00ffff; /* Bright Cyan - Digital & Modern Pop */
+
+  /* Teks & UI */
+  --color-text-light: #f0f0f0; /* Off-white for readability on dark */
+  --color-text-muted: #b0b0b0; /* Lighter grey for secondary text */
+  --color-border-subtle: #4a6572; /* Subtle border on dark background */
+
+  /* Font Families dengan fallback */
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Montserrat", sans-serif;
+  --font-arabic: "Cairo", sans-serif;
+
+  /* Tambahan untuk efek partikel */
+  --particle-color: rgba(var(--color-accent-green-rgb), 0.1); /* Partikel hijau transparan */
+  --particle-size: 2px; /* Ukuran dasar partikel */
+
+  /* RGB untuk penggunaan dalam rgba() */
+  --color-dark-secondary-rgb: 44, 62, 80;
+  --color-accent-green-rgb: 61, 153, 112;
+  --color-dark-primary-rgb: 23, 32, 42;
+  --color-accent-gold-rgb: 255, 195, 0;
+  --color-text-light-rgb: 240, 240, 240;
+
+  /* Custom properties untuk ukuran font dasar agar mudah disesuaikan */
+  --font-size-base: 16px;
+  --font-size-large: 1.2rem;
+  --font-size-xl: 1.5rem;
+}
+
+/* --- Global Resets & Base Styles --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Kunci untuk layout dengan scroll vertikal aktif, horizontal mati */
+html {
+  height: 100%; /* Pastikan html mengisi seluruh viewport */
+  overflow-x: hidden; /* Hentikan scroll horizontal di level html */
+}
+
+body {
+  min-height: 100vh; /* Pastikan body mengisi minimal 100% tinggi viewport */
+  font-family: var(--font-body);
+  background-color: var(--color-dark-primary);
+  color: var(--color-text-light);
+  line-height: 1.6;
+  font-size: var(--font-size-base); /* Gunakan ukuran font dasar */
+  display: flex; /* Gunakan flexbox pada body */
+  flex-direction: column; /* Susun item secara vertikal */
+  overflow-x: hidden; /* Tambahan untuk memastikan body tidak scroll horizontal */
+  width: 100vw; /* Pastikan body tidak melebihi lebar viewport */
+}
+
+/* --- Navbar Styling --- */
+.navbar {
+  position: relative;
+  background-color: var(--color-dark-primary);
+  border-bottom: 2px solid var(--color-border-subtle);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 75px; /* Slightly taller */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+  transition: all 0.2s ease-in-out;
+  flex-shrink: 0; /* Pastikan navbar tidak menyusut */
+  width: 100%; /* Memastikan navbar mengisi lebar penuh */
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Posisi kiri */
+.hanging-left,
+.hanging-right {
+  position: absolute;
+  top: 100%;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hanging-left {
+  left: 20px;
+}
+
+.hanging-right {
+  right: 30px;
+}
+
+.swing-wrapper {
+  animation: swing 3s ease-in-out infinite alternate;
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.swing-wrapper:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.hanging-left svg,
+.hanging-right svg {
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
+}
+
+.moon-icon {
+  width: 6em;
+  height: 6em;
+  fill: var(--color-accent-gold);
+}
+
+.ketupat-icon {
+  width: 6em;
+  height: 6em;
+  fill: var(--color-accent-green);
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-3px);
+  }
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between logo and divider */
+}
+
+.logo {
+  height: 60px; /* Larger logo */
+  width: auto;
+  border-radius: 8px; /* Slightly rounded */
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 0 8px rgba(var(--color-accent-green-rgb), 0.7)); /* Green glow */
+}
+
+.logo:hover {
+  transform: scale(1.05); /* More pronounced hover */
+  filter: drop-shadow(0 0 12px rgba(var(--color-accent-gold-rgb), 0.9)); /* Gold glow on hover */
+}
+
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-dark-secondary);
+  border-radius: 30px; /* Pill shape */
+  padding: 10px 15px; /* Comfortable padding */
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.search-form:focus-within {
+  background-color: var(--color-dark-primary);
+  border-color: var(--color-accent-green);
+  box-shadow: 0 0 0 3px rgba(var(--color-accent-green-rgb), 0.5), inset 0 2px 8px rgba(0, 0, 0, 0.5); /* Green ring glow */
+}
+
+.search-input {
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  padding-right: 45px; /* Space for button */
+  outline: none;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 2vw, 1.05rem); /* Ukuran font responsif */
+  font-weight: 500;
+  width: 200px; /* Default lebih kecil untuk layar kecil */
+  transition: width 0.3s ease, color 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.8;
+}
+
+.search-input:focus {
+  width: 300px; /* Ukuran saat fokus untuk layar kecil */
+  color: var(--color-accent-gold); /* Text turns gold on focus */
+}
+
+.search-button {
+  position: absolute;
+  right: 15px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: clamp(1.5rem, 3.5vw, 1.8rem); /* Ukuran icon responsif */
+  transition: color 0.2s ease, transform 0.2s ease;
+  /* Material Symbols styling */
+  font-variation-settings: "FILL" 0, "wght" 400, /* Medium weight */ "GRAD" 0, "opsz" 30; /* Larger optical size */
+}
+
+.search-button:hover {
+  color: var(--color-accent-green); /* Green on hover */
+  transform: scale(1.15); /* More pronounced scaling */
+}
+
+/* --- Main Content Layout --- */
+.main-content-wrapper {
+  flex-grow: 1; /* Biarkan konten utama mengisi sisa ruang yang tersedia */
+  padding: 25px; /* Padding global untuk konten */
+  display: flex; /* Gunakan flexbox untuk menengahkan konten */
+  flex-direction: column;
+  justify-content: flex-start; /* Sesuaikan agar konten dimulai dari atas */
+  align-items: center; /* Tengahkan secara horizontal */
+  max-width: none; /* Hapus max-width agar bisa full screen */
+  margin: 0; /* Hapus margin agar tidak ada space sisa */
+  padding-top: 60px; /* Tambahkan padding atas agar tidak terlalu mepet navbar */
+}
+
+.section-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 6vw, 3.2rem); /* Ukuran font responsif */
+  color: var(--color-text-light);
+  margin-bottom: 50px;
+  font-weight: 800; /* Extra bold */
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 15px rgba(var(--color-accent-green-rgb), 0.6); /* Stronger green glow */
+  line-height: 1.2;
+  max-width: 1200px; /* Batasi lebar section-title agar tidak terlalu lebar di layar besar */
+  width: 90%; /* Gunakan persentase untuk responsif */
+}
+
+.kota-highlight {
+  color: var(--color-accent-gold);
+  text-shadow: none; /* No glow on highlight */
+}
+
+/* --- Info Messages (Loading/Error) --- */
+.info-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  padding: 18px 25px;
+  margin: 30px auto;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 90%; /* Responsif */
+}
+
+.info-message span:first-child {
+  /* Icon */
+  font-size: 1.8rem;
+}
+
+.loading-message {
+  background-color: var(--color-dark-secondary);
+  border: 1px solid var(--color-accent-green);
+  color: var(--color-accent-green);
+}
+
+.error-message {
+  background-color: #5c2d2d; /* Darker red */
+  border: 1px solid #ff6b6b; /* Bright red */
+  color: #ff6b6b;
+}
+
+/* --- Jadwal Grid Container (Revisi) --- */
+.jadwal-grid-container {
+  display: flex; /* Ubah menjadi flexbox untuk kontrol kolom yang lebih fleksibel */
+  flex-direction: column; /* Default: Susun item secara vertikal (untuk mobile/tablet) */
+  gap: 40px;
+  align-items: center; /* Tengahkan item dalam kolom */
+  width: 100%; /* Pastikan grid/flex mengisi lebar penuh */
+  max-width: 1200px; /* Batasi lebar maksimal */
+  padding: 0 25px; /* Sesuaikan padding */
+}
+
+/* --- Card Styling (Jadwal Harian & Bulanan) --- */
+.card {
+  background-color: var(--color-dark-secondary);
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  padding: 35px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border: 1px solid var(--color-border-subtle);
+  width: 100%; /* Pastikan kartu mengisi lebar penuh container-nya */
+  max-width: 600px; /* Batasi lebar maksimal kartu agar tidak terlalu lebar di tengah */
+}
+
+.card:hover {
+  transform: translateY(-8px); /* Lifts up */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* Deeper shadow */
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px); /* Gerak naik 8px */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.jadwal-harian-card {
+  position: static; /* Hapus sticky di default (mobile/tablet) */
+  border-left: 5px solid var(--color-accent-gold); /* Bold left border for highlight */
+  animation: float 4s ease-in-out infinite;
+}
+
+.jadwal-harian-card:hover {
+  transform: translateY(-8px); /* Properti hover yang sudah ada */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  animation-play-state: paused; /* Opsional: Hentikan animasi saat hover */
+}
+
+.jadwal-bulanan-card {
+  border-left: 5px solid var(--color-accent-green); /* Bold left border */
+  /* Pastikan jadwal bulanan berada di bawah jadwal harian */
+  order: 2; /* Berikan urutan setelah jadwal harian */
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.card-header .material-icons-sharp {
+  font-size: 2.5rem;
+  color: var(--color-accent-gold); /* Icon color */
+  filter: drop-shadow(0 0 5px rgba(var(--color-accent-gold-rgb), 0.6));
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 1.5rem); /* Ukuran font responsif */
+  color: var(--color-text-light);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.card-title2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4vw, 1.9rem); /* Ukuran font responsif */
+  color: var(--color-text-light);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.hijri-date {
+  font-family: var(--font-arabic); /* Cairo for Hijri date */
+  font-size: clamp(1rem, 2.5vw, 1.3rem); /* Ukuran font responsif */
+  color: var(--color-accent-green); /* Green color for Hijri date */
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* --- Jadwal List (Harian) --- */
+.jadwal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.jadwal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(var(--color-text-light-rgb), 0.1);
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+  transition: all 0.4s ease-in-out;
+}
+
+.jadwal-item:hover {
+  background-color: rgba(var(--color-accent-green-rgb), 0.05); /* Sedikit highlight background */
+  transform: translateX(5px); /* Geser sedikit ke kanan */
+}
+
+.jadwal-item:last-child {
+  border-bottom: none;
+}
+
+.prayer-label {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.prayer-time {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3.5vw, 1.55rem); /* Ukuran font responsif */
+  color: var(--color-accent-gold); /* Ubah ke warna emas */
+  font-weight: 700; /* Sedikit kurang tebal, dari 800 ke 700 */
+  letter-spacing: 0.5px; /* Kurangi letter-spacing */
+  text-shadow: 0 0 8px rgba(var(--color-accent-gold-rgb), 0.5); /* Ubah glow ke emas, sedikit lebih halus */
+}
+
+.prayer-label .material-symbols-sharp {
+  font-size: 1.25rem; /* Ukuran ikon, sesuaikan agar proporsional dengan teks */
+  color: var(--color-accent-green); /* Warna ikon, bisa disesuaikan */
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24; /* Ukuran optik ikon */
+}
+
+/* --- Table Styling (Bulanan) */
+.table-responsive {
+  overflow-x: auto; /* Izinkan scroll horizontal HANYA pada tabel jika terlalu lebar */
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px; /* Space for scrollbar */
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-dark-primary);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-accent-green); /* Green thumb */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-gold); /* Gold thumb on hover */
+}
+
+.jadwal-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px; /* Minimum width to enable horizontal scroll on smaller screens for this table */
+}
+
+.jadwal-table th,
+.jadwal-table td {
+  padding: clamp(10px, 2vw, 15px) clamp(5px, 1.5vw, 10px); /* Padding responsif */
+  text-align: center;
+  border-bottom: 1px solid rgba(var(--color-text-light-rgb), 0.08); /* Very subtle divider */
+  color: var(--color-text-light);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem); /* Ukuran font responsif */
+}
+
+.jadwal-table th {
+  background-color: var(--color-dark-primary);
+  color: var(--color-accent-gold); /* Gold header text */
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(0.75rem, 1.6vw, 0.85rem); /* Ukuran font responsif */
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--color-accent-green); /* Green border below header */
+}
+
+.jadwal-table tbody tr:hover {
+  background-color: rgba(var(--color-accent-green-rgb), 0.1); /* Subtle green background on hover */
+  /* Sedikit lebih jelas terlihat */
+  transform: scale(1.005); /* Pertahankan scale kecil */
+  box-shadow: 0 0 5px rgba(var(--color-accent-green-rgb), 0.3); /* Tambah shadow lembut */
+  transition: all 0.15s ease-out;
+}
+
+.jadwal-table tbody tr.current-day-row {
+  background-color: rgba(var(--color-accent-gold-rgb), 0.15); /* Gold background for current day */
+  font-weight: 600;
+  border-left: 3px solid var(--color-accent-cyan); /* Cyan left border for current day */
+}
+
+.jadwal-table tbody tr.current-day-row td {
+  color: var(--color-text-light);
+}
+
+.table-date {
+  font-weight: 700;
+  color: var(--color-accent-gold); /* Gold date text */
+}
+
+/* --- Footer Styling --- */
+.footer {
+  position: relative;
+  background-color: var(--color-dark-primary);
+  border-top: 2px solid var(--color-border-subtle);
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4);
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo {
+  height: 80px;
+  width: auto;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.4s ease, filter 0.3s ease;
+  filter: grayscale(0.2) contrast(1.1);
+}
+
+.footer-logo:hover {
+  transform: scale(1.06) rotate(-2deg);
+  filter: grayscale(0) contrast(1.3);
+}
+
+.footer-text {
+  margin-bottom: 10px;
+}
+
+.footer-link {
+  color: var(--color-accent-green);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--color-accent-gold);
+  text-decoration: underline;
+}
+
+.footer-social-icons {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.footer-social-icons .material-symbols-sharp {
+  font-size: 1.8rem;
+  color: var(--color-text-muted);
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.footer-social-icons .material-symbols-sharp:hover {
+  color: var(--color-accent-cyan);
+  transform: translateY(-3px);
+}
+
+.instagram,
+.youtube {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0 8px;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+}
+
+/* Icon style */
+.instagram svg,
+.youtube svg {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+/* Instagram default & hover glow */
+.instagram svg {
+  fill: #d62976;
+}
+.instagram:hover svg {
+  transform: scale(1.1) rotate(-5deg);
+  filter: drop-shadow(0 0 6px #d62976);
+}
+
+/* YouTube default & hover glow */
+.youtube svg {
+  fill: #ff0000;
+}
+.youtube:hover svg {
+  transform: scale(1.1) rotate(-5deg);
+  filter: drop-shadow(0 0 6px #ff0000);
+}
+
+.star-left,
+.star-right {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.star-left {
+  top: 0;
+  left: 1em;
+  margin: 8px;
+}
+
+.star-right {
+  bottom: 0;
+  right: 0.3em;
+  margin: 8px;
+}
+
+.swing-wrapper {
+  animation: swing 3s ease-in-out infinite alternate;
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.swing-wrapper:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.star-left svg,
+.star-right svg {
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.15));
+}
+
+/* Ukuran & warna khusus untuk SVG-mu */
+.custom-star-icon {
+  width: 6em;
+  height: 6em;
+  stroke: var(--color-accent-gold, #ffd700); /* fallback jika --color-accent-gold tidak ada */
+  fill: none;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-3px);
+  }
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+}
+
+/* --- Background Effect --- */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-dark-secondary-rgb), 0.9) 10%,
+    rgba(var(--color-accent-green-rgb), 0.35) 30%,
+    rgba(var(--color-dark-primary-rgb), 0.85) 50%,
+    rgba(var(--color-accent-gold-rgb), 0.3) 70%,
+    rgba(var(--color-dark-secondary-rgb), 0.8) 90%
+  );
+
+  background-size: 250% 250%;
+  animation: subtleGradientFlow 15s ease-in-out infinite;
+  backdrop-filter: blur(3px);
+  opacity: 0.96;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes subtleGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: -2;
+  animation: subtlePulse 10s ease-in-out infinite;
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+}
+
+@keyframes subtlePulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.03);
+    opacity: 0.3;
+  }
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+/* --- Tablet (601px - 991px) --- */
+@media (min-width: 601px) and (max-width: 991px) {
+  .jadwal-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100%; /* Hindari overflow horizontal */
+    padding: 0 1rem;
+  }
+
+  .jadwal-harian-card,
+  .jadwal-bulanan-card {
+    order: unset;
+    position: static;
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .search-input:focus {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .star-left{
+    left: -0.1em;
+  }
+
+  .ketupat-icon{
+    width: 5em;
+    height: 5em;
+  }
+
+  .moon-icon{
+    width: 5em;
+    height: 5em;
+  }
+
+  .hanging-left{
+    left: -0.1em;
+  }
+
+  .hanging-right{
+    right: 0.8em;
+  }
+}
+
+/* --- Desktop (≥992px) --- */
+@media (min-width: 992px) {
+  .jadwal-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .jadwal-harian-card {
+    position: sticky;
+    top: 95px;
+    align-self: start;
+    width: 100%;
+    max-width: unset;
+  }
+
+  .jadwal-bulanan-card {
+    max-width: unset;
+  }
+
+  .search-input {
+    width: 280px;
+  }
+
+  .search-input:focus {
+    width: 380px;
+  }
+}
+
+/* --- Mobile Medium (max-width: 768px) --- */
+@media (max-width: 768px) {
+  .footer {
+    padding: 20px 15px;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+  }
+
+  .footer-social-icons {
+    gap: 15px;
+  }
+
+  .footer-social-icons .material-symbols-sharp {
+    font-size: 1.5rem;
+  }
+
+   .section-title{
+    margin-top: 4rem;
+  }
+}
+
+/* --- Mobile Small (max-width: 600px) --- */
+@media (max-width: 600px) {
+  .navbar-container {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .navbar {
+    height: auto;
+    padding: 15px;
+  }
+
+  .logo-area {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .search-form {
+    width: 90%;
+    max-width: 350px;
+    padding: 8px 12px;
+  }
+
+  .search-input {
+    width: 100%;
+    padding-right: 30px;
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+  }
+
+  .search-input:focus {
+    width: 100%;
+  }
+
+  .search-button {
+    right: 10px;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+  }
+
+  .main-content-wrapper {
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .card {
+    padding: 25px 20px;
+    width: 100%;
+  }
+
+  .card-header .material-icons-sharp {
+    font-size: 2rem;
+  }
+
+  .card-title {
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
+  }
+
+  .card-title2 {
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+  }
+
+  .hijri-date {
+    font-size: clamp(0.9rem, 2.3vw, 1.1rem);
+    margin-bottom: 20px;
+  }
+
+  .jadwal-item {
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+
+  .prayer-label {
+    font-size: 0.9rem;
+  }
+
+  .prayer-time {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+  }
+
+  .jadwal-table th,
+  .jadwal-table td {
+    padding: clamp(8px, 1.5vw, 12px) clamp(5px, 1vw, 8px);
+    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  }
+
+  .jadwal-table th {
+    font-size: clamp(0.65rem, 1.3vw, 0.75rem);
+  }
+
+  .moon-icon {
+    width: 3em;
+    height: 3em;
+  }
+
+  .hanging-left {
+    left: -5px;
+  }
+  .ketupat-icon {
+    width: 3em;
+    height: 3em;
+  }
+
+  .hanging-right {
+    right: -1px;
+  }
+
+  .custom-star-icon {
+    width: 3em;
+    height: 3em;
+  }
+
+  .star-left {
+    left: -0.3em;
+  }
+
+  .star-right {
+    right: -0.3em;
+  }
+}
